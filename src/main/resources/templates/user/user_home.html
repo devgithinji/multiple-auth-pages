@@ -8,7 +8,7 @@
 <div align="center">
   <h2>Welcome to CodeJava.net User Home</h2>
   <p>Your user name is: <b>[[${#request.userPrincipal.principal.username}]]</b></p>
-  <form th:action="@{/user/logout}" method="post">
+  <form th:action="@{/customer/logout}" method="post">
     <input type="submit" value="Logout" />
   </form>
 </div>

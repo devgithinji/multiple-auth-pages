@@ -21,12 +21,12 @@ public class MainController {
         return "admin/admin_home";
     }
 
-    @GetMapping("/user/login")
+    @GetMapping("/customer/login")
     public String viewUserLoginPage() {
         return "user/user_login";
     }
 
-    @GetMapping("/user/home")
+    @GetMapping("/customer/home")
     public String viewUserHomePage() {
         return "user/user_home";
     }

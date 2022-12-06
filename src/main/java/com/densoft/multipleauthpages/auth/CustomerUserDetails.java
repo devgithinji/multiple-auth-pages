@@ -1,19 +1,17 @@
 package com.densoft.multipleauthpages.auth;
 
-import com.densoft.multipleauthpages.model.User;
+import com.densoft.multipleauthpages.model.Customer;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
-public class CustomUserDetails implements UserDetails {
+public class CustomerUserDetails implements UserDetails {
 
-    private User user;
+    private Customer customer;
 
-    public CustomUserDetails(User user) {
-        this.user = user;
+    public CustomerUserDetails(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -23,12 +21,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return customer.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return customer.getEmail();
     }
 
     @Override

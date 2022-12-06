@@ -1,6 +1,6 @@
 package com.densoft.multipleauthpages.config;
 
-import com.densoft.multipleauthpages.service.CustomUserDetailsService;
+import com.densoft.multipleauthpages.service.CustomerUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -12,46 +12,43 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@Order(1)
-public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
-
+@Order(2)
+public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
+    public UserDetailsService customerUserDetailsService() {
+        return new CustomerUserDetailsService();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder2() {
         return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider1() {
+    public DaoAuthenticationProvider authenticationProvider2() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setUserDetailsService(customerUserDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder2());
+
         return authProvider;
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authenticationProvider(authenticationProvider1());
+        http.authenticationProvider(authenticationProvider2());
 
-        http.authorizeRequests().antMatchers("/").permitAll();
-
-        http.antMatcher("/admin/**")
+        http.antMatcher("/customer/**")
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/admin/login")
+                .loginPage("/customer/login")
                 .usernameParameter("email")
-                .loginProcessingUrl("/admin/login")
-                .defaultSuccessUrl("/admin/home")
+                .loginProcessingUrl("/customer/login")
+                .defaultSuccessUrl("/customer/home")
                 .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/admin/logout")
+                .logoutUrl("/customer/logout")
                 .logoutSuccessUrl("/");
-
     }
 }

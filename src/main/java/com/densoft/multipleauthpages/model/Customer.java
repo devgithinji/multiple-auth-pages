@@ -1,27 +1,29 @@
 package com.densoft.multipleauthpages.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "customers")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class User {
+public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false, unique = true, length = 40)
     private String email;
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, length = 10)
     private String password;
+    @Column(nullable = false, length = 30)
+    private String fullName;
 
-    public User(String email, String password) {
+    public Customer(String email, String password, String fullName) {
         this.email = email;
         this.password = password;
+        this.fullName = fullName;
     }
 }
